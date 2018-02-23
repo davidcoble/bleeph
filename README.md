@@ -1,2 +1,2 @@
 # bleeph
-android app to control a bleeph
+android studio project to control a bleeph

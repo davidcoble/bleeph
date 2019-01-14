@@ -106,6 +106,7 @@ public class ScannerFragment extends Fragment implements ScannerStatusFragmentDi
 
     // Data - Dialogs
     private ScannerStatusFragmentDialog mConnectingDialog;
+    private EditText filtersNameEditText;
 
     // region Fragment lifecycle
     public static ScannerFragment newInstance() {
@@ -117,6 +118,12 @@ public class ScannerFragment extends Fragment implements ScannerStatusFragmentDi
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        filtersNameEditText.setText("bleeph");
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
@@ -124,6 +131,7 @@ public class ScannerFragment extends Fragment implements ScannerStatusFragmentDi
         // the callback interface. If not, it throws an exception
         try {
             mListener = (ScannerFragmentListener) context;
+
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement ScannerFragmentListener");
         }
@@ -211,7 +219,8 @@ public class ScannerFragment extends Fragment implements ScannerStatusFragmentDi
             mFiltersExpandImageView = view.findViewById(R.id.filtersExpandImageView);
             mFiltersClearButton = view.findViewById(R.id.filtersClearButton);
             mFiltersTitleTextView = view.findViewById(R.id.filtersTitleTextView);
-            EditText filtersNameEditText = view.findViewById(R.id.filtersNameEditText);
+            filtersNameEditText = view.findViewById(R.id.filtersNameEditText);
+
             filtersNameEditText.addTextChangedListener(new TextWatcher() {
 
                 public void afterTextChanged(Editable s) {
@@ -229,6 +238,7 @@ public class ScannerFragment extends Fragment implements ScannerStatusFragmentDi
             SharedPreferences preferences = context.getSharedPreferences(kPreferences, MODE_PRIVATE);
             boolean filtersIsPanelOpen = preferences.getBoolean(kPreferences_filtersPanelOpen, false);
             openFiltersPanel(filtersIsPanelOpen, false);
+
         }
 
         ImageButton filterNameSettings = view.findViewById(R.id.filterNameSettings);

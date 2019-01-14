@@ -198,6 +198,7 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
         final int b = (color >> 0) & 0xFF;
         final String text = String.format(getString(R.string.colorpicker_rgb_format), r, g, b);
         mRgbTextView.setText(text);
+        //mListener.onSendColorComponents(color);
     }
 
 

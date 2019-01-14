@@ -318,6 +318,7 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements G
 
         // Disable cache if coming back from Control Pad
         mUartDataManager.setListener(null);
+        mControllerAdapter.startColorPicker();
     }
 
     @Override
@@ -813,6 +814,10 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements G
         private static final int kSensorDataCellsStartPosition = 1;
         private static final int kModuleCellsStartPosition = 1 + kNumSensorTypes + 1;
 
+        public void startColorPicker() {
+            mListener.onModuleSelected(1);
+        }
+
         // Interface
         interface Listener {
             void onSensorEnabled(int sensorId, boolean enabled);
@@ -993,6 +998,7 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements G
 
                 case kCellType_ModuleCell:
                     ModuleViewHolder moduleViewHolder = (ModuleViewHolder) holder;
+
                     final int moduleId = position - kModuleCellsStartPosition;
                     moduleViewHolder.nameTextView.setText(kModuleTitleKeys[position - kModuleCellsStartPosition]);
                     moduleViewHolder.mainViewGroup.setOnClickListener(view -> {

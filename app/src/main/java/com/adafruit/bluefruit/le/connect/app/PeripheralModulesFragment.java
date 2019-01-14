@@ -162,6 +162,12 @@ public class PeripheralModulesFragment extends ConnectedPeripheralFragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        onModuleSelected(MODULE_CONTROLLER);
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
 

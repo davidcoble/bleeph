@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: no.nordicsemi.android.support.v18:scanner-1.1.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/scanner-1.1.0.aar/de249ca1282a902784534db5d9d9cc87/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/scanner-1.1.0.aar/de249ca1282a902784534db5d9d9cc87/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/no.nordicsemi.android.support.v18/scanner/1.1.0/c02b6cb17cf659d0564fcb6d896510de6a6868f8/scanner-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

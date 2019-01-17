@@ -504,4 +504,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mode_button_swirl">Swirl</string>
+    <string name="mode_button_marquee">Marquee</string>
+    <string name="rainbow">Rainbow</string>
+    <string name="reverse">Reverse</string>
+    <string name="color_selected">Color Selected</string>
+    <string name="color_unselected">Color Unselected</string>
+    <string name="selected_no">No</string>
 </resources>

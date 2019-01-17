@@ -20,15 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e0444b4-971f-4b07-b123-5f163c584383" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bordered_button.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/BluefruitApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/BluefruitApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/PeripheralModulesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/PeripheralModulesFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ScannerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ScannerFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_scanner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_scanner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_controller_colorpicker.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_controller_colorpicker.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/material_colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/material_colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bleeph.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bleeph.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -50,139 +60,24 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.39248657">
+    <splitter split-orientation="horizontal" split-proportion="0.44593146">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="5925">
-                  <caret line="395" column="47" selection-start-line="395" selection-start-column="18" selection-end-line="395" selection-end-column="47" />
+                <state relative-caret-position="317">
+                  <caret line="416" column="40" selection-start-line="416" selection-start-column="18" selection-end-line="416" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="BlePeripheralsAdapter.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/BlePeripheralsAdapter.java">
+          <file leaf-file-name="View.class" pinned="false" current-in-tab="false">
+            <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-27/android.jar!/android/view/View.class">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="4275">
-                  <caret line="322" column="25" selection-start-line="322" selection-start-column="12" selection-end-line="322" selection-end-column="25" />
+                <state relative-caret-position="307">
+                  <caret line="2864" column="13" selection-start-line="2864" selection-start-column="13" selection-end-line="2864" selection-end-column="13" />
                 </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="BlePeripheral.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/ble/central/BlePeripheral.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="33" column="71" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ScannerFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ScannerFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="9030">
-                  <caret line="678" column="44" selection-start-line="678" selection-start-column="44" selection-end-line="678" selection-end-column="44" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ControllerColorPickerFragment.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="196">
-                  <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
-                  <folding>
-                    <element signature="e#1323#1350#0" expanded="true" />
-                    <element signature="e#1963#2008#0" expanded="true" />
-                    <element signature="e#2643#2669#0" expanded="true" />
-                    <element signature="e#6361#6403#0" expanded="true" />
-                    <element signature="e#6405#6446#0" expanded="true" />
-                    <element signature="e#7393#7435#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ControllerFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="278">
-                  <caret line="817" column="40" selection-start-line="817" selection-start-column="40" selection-end-line="817" selection-end-column="40" />
-                  <folding>
-                    <element signature="e#34685#34686#0" expanded="true" />
-                    <element signature="e#34738#34739#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="22" selection-start-line="22" selection-end-line="22" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="PeripheralModulesFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/PeripheralModulesFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1935">
-                  <caret line="166" column="42" selection-start-line="166" selection-start-column="42" selection-end-line="166" selection-end-column="42" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ConnectedPeripheralFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ConnectedPeripheralFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="AboutFragment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/AboutFragment.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="fragment_scanner.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_scanner.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="39" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="39" />
-                </state>
-              </provider>
-              <provider editor-type-id="android-designer2">
-                <state />
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="fragment_peripheralmodules.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_peripheralmodules.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="49" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="49" />
-                </state>
-              </provider>
-              <provider editor-type-id="android-designer2">
-                <state />
               </provider>
             </entry>
           </file>
@@ -195,11 +90,74 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="layout_peripheralmodules_peripheraldetails.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_peripheralmodules_peripheraldetails.xml">
+          <file leaf-file-name="border_gray.xml" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_gray.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="555">
-                  <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
+                <state />
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ControllerFragment.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerFragment.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="2400">
+                  <caret line="1063" column="48" selection-start-line="1063" selection-start-column="48" selection-end-line="1063" selection-end-column="48" />
+                  <folding>
+                    <element signature="e#5680#5913#0" expanded="true" />
+                    <element signature="e#5912#5913#0" expanded="true" />
+                    <element signature="e#7130#7159#0" expanded="true" />
+                    <element signature="e#10339#10400#0" expanded="true" />
+                    <element signature="e#19065#19099#0" expanded="true" />
+                    <element signature="e#20336#20377#0" expanded="true" />
+                    <element signature="e#20379#20419#0" expanded="true" />
+                    <element signature="e#23552#23608#0" expanded="true" />
+                    <element signature="e#23650#23705#0" expanded="true" />
+                    <element signature="e#24861#24904#0" expanded="true" />
+                    <element signature="e#24942#24992#0" expanded="true" />
+                    <element signature="e#28897#28947#0" expanded="true" />
+                    <element signature="e#31250#31289#0" expanded="true" />
+                    <element signature="e#34016#34053#0" expanded="true" />
+                    <element signature="e#34055#34095#0" expanded="true" />
+                    <element signature="e#34097#34128#0" expanded="true" />
+                    <element signature="e#34130#34169#0" expanded="true" />
+                    <element signature="e#34171#34206#0" expanded="true" />
+                    <element signature="e#34264#34294#0" expanded="true" />
+                    <element signature="e#34296#34334#0" expanded="true" />
+                    <element signature="e#41539#41595#0" expanded="true" />
+                    <element signature="e#42553#42586#0" expanded="true" />
+                    <element signature="e#42588#42622#0" expanded="true" />
+                    <element signature="e#42624#42657#0" expanded="true" />
+                    <element signature="e#42888#42919#0" expanded="true" />
+                    <element signature="e#42921#42952#0" expanded="true" />
+                    <element signature="e#42954#42985#0" expanded="true" />
+                    <element signature="e#42987#43018#0" expanded="true" />
+                    <element signature="e#44354#44842#0" expanded="true" />
+                    <element signature="e#44841#44842#0" expanded="true" />
+                    <element signature="e#45021#45679#0" expanded="true" />
+                    <element signature="e#45678#45679#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="BluefruitApplication.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/BluefruitApplication.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="840">
+                  <caret line="67" column="32" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
+                  <folding>
+                    <element signature="e#1889#1890#0" expanded="true" />
+                    <element signature="e#1930#1931#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="bordered_button.xml" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bordered_button.xml">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="45">
+                  <caret line="3" selection-start-line="3" selection-end-line="3" />
                 </state>
               </provider>
               <provider editor-type-id="android-designer2">
@@ -207,7 +165,16 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="fragment_neopixel_colorpicker.xml" pinned="false" current-in-tab="true">
+          <file leaf-file-name="R.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r/com/adafruit/bluefruit/le/connect/R.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="416">
+                  <caret line="4834" column="28" selection-start-line="4834" selection-start-column="28" selection-end-line="4834" selection-end-column="28" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="fragment_neopixel_colorpicker.xml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_neopixel_colorpicker.xml">
               <provider editor-type-id="text-editor">
                 <state />
@@ -234,18 +201,70 @@
             </entry>
           </file>
         </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="fragment_controller_colorpicker.xml" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_controller_colorpicker.xml">
+              <provider editor-type-id="text-editor">
+                <state relative-caret-position="225">
+                  <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+                </state>
+              </provider>
+              <provider selected="true" editor-type-id="android-designer2">
+                <state />
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ControllerColorPickerFragment.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="585">
+                  <caret line="212" selection-start-line="212" selection-end-line="212" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#1768#1795#0" expanded="true" />
+                    <element signature="e#2681#2726#0" expanded="true" />
+                    <element signature="e#3361#3387#0" expanded="true" />
+                    <element signature="e#6216#6241#0" expanded="true" />
+                    <element signature="e#6562#6784#0" expanded="true" />
+                    <element signature="e#6783#6784#0" expanded="true" />
+                    <element signature="e#6959#6982#0" expanded="true" />
+                    <element signature="e#7303#7525#0" expanded="true" />
+                    <element signature="e#7524#7525#0" expanded="true" />
+                    <element signature="e#13891#13933#0" expanded="true" />
+                    <element signature="e#13935#13976#0" expanded="true" />
+                    <element signature="e#14923#14965#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+              <provider editor-type-id="android-manifest">
+                <state />
+              </provider>
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="814">
+                  <caret line="65" column="8" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
       </split-second>
     </splitter>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>main_tabbar_centralmode</find>
-      <find>CONNECT</find>
-      <find>Multiple</find>
-      <find>multiconnect_title</find>
-      <find>filtersTitleTextView</find>
-      <find>uart</find>
-      <find>Central Mode</find>
       <find>Modules</find>
       <find>peripheralmodules_title</find>
       <find>PeripheralModulesFragment</find>
@@ -263,12 +282,19 @@
       <find>kModuleTitleKeys</find>
       <find>colorPicker</find>
       <find>selectColorButton</find>
-      <find>ControllerColorPickerFragment</find>
       <find>NeopixelColorPickerFragmentListener</find>
       <find>ControllerColorPickerFragmentListener</find>
-      <find>onSendColorComponents</find>
       <find>wComponentBar</find>
+      <find>fragment_controller_colorpicker</find>
+      <find>RGB</find>
+      <find>colorpicker_rgb_format</find>
+      <find>ControllerColorPickerFragment</find>
+      <find>sendButton</find>
+      <find>&lt;activity</find>
       <find>mListener</find>
+      <find>onSendColorComponents</find>
+      <find>extends Appl</find>
+      <find>BluefruitApplication</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app/src/main/res</dir>
@@ -3059,16 +3085,21 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/PeripheralModulesFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_neopixel_colorpicker.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/bordered_button.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/BluefruitApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_neopixel_colorpicker.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_controller_colorpicker.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="-3" />
-    <option name="width" value="1920" />
-    <option name="height" value="1060" />
+    <option name="x" value="20" />
+    <option name="y" value="74" />
+    <option name="width" value="1910" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -3116,6 +3147,12 @@
               <item name="bleeph" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="bleeph" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
@@ -3131,6 +3168,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="device.picker.selection" value="LMG710TM3d77c43f" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -3244,6 +3282,9 @@
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
     </configuration>
   </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -3270,87 +3311,96 @@
     <frame x="0" y="-3" width="3440" height="1420" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.32946634" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32946634" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Build Variants" order="2" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Preview" order="3" weight="0.32960564" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32869297" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32946634" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32946634" />
-      <window_info anchor="bottom" id="Logcat" order="7" weight="0.254447" />
-      <window_info id="Captures" order="2" sideWeight="0.4995141" weight="0.24985285" />
-      <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="14" weight="0.32946634" />
+      <window_info id="Build Variants" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Logcat" order="11" weight="0.36968577" />
+      <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4849188" visible="true" weight="0.17745733" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.20417634" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32946634" />
-      <window_info anchor="right" id="Gradle" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.5150812" side_tool="true" visible="true" weight="0.17745733" />
-      <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.35266823" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info active="true" anchor="right" id="Assistant" order="3" visible="true" weight="0.21954091" />
-      <window_info anchor="bottom" id="Dependency Viewer" order="8" visible="true" weight="0.32946634" />
+      <window_info anchor="bottom" id="Build" order="8" weight="0.1438515" />
+      <window_info id="Structure" order="1" sideWeight="0.5158546" side_tool="true" visible="true" weight="0.12860507" />
+      <window_info anchor="right" id="Device File Explorer" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.54084265" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32869297" />
+      <window_info anchor="bottom" id="Messages" order="0" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="right" id="Preview" order="4" weight="0.22294968" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.21368948" />
+      <window_info anchor="bottom" id="Version Control" order="12" weight="0.32946634" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946634" />
+      <window_info id="Captures" order="6" sideWeight="0.4995141" weight="0.24985285" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4841454" visible="true" weight="0.12860507" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32869297" />
+      <window_info anchor="right" id="Gradle" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info active="true" anchor="right" id="Assistant" order="7" visible="true" weight="0.21954091" />
+      <window_info anchor="bottom" id="Dependency Viewer" order="13" visible="true" weight="0.32946634" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="bottom" id="Build" order="8" weight="0.33333334" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="bottom" id="Run" order="3" weight="0.32869297" />
+      <window_info id="Build Variants" order="7" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Android Profiler" order="14" weight="0.32946634" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32946634" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="right" id="Preview" order="4" weight="0.22294968" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.32946634" />
+      <window_info anchor="right" id="Device File Explorer" order="9" side_tool="true" />
+      <window_info id="Captures" order="6" sideWeight="0.4995141" weight="0.24985285" />
+      <window_info active="true" anchor="right" id="Assistant" order="7" visible="true" weight="0.21954091" />
+      <window_info anchor="bottom" id="Logcat" order="11" weight="0.4410569" />
+      <window_info anchor="bottom" id="Dependency Viewer" order="13" visible="true" weight="0.32946634" />
+      <window_info anchor="bottom" id="Version Control" order="12" weight="0.32946634" />
+      <window_info anchor="right" id="Gradle" order="5" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48409286" visible="true" weight="0.1804294" />
+      <window_info anchor="bottom" id="Messages" order="0" />
+      <window_info anchor="bottom" id="Message" order="1" />
+      <window_info anchor="bottom" id="TODO" order="7" weight="0.32869297" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Structure" order="1" sideWeight="0.5159071" side_tool="true" visible="true" weight="0.1804294" />
+      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.5415677" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java</url>
+          <line>245</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="9" />
+      <option name="time" value="13" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/BlePeripheralsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3900">
-          <caret line="297" selection-start-line="297" selection-end-line="297" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/models/ScannerViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/livedata/1.1.1/bf27acaa4953c98cd519756ed7b7caacf94407d4/livedata-1.1.1-sources.jar!/android/arch/lifecycle/Transformations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1695">
-          <caret line="132" selection-start-line="132" selection-end-line="132" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="39" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ScannerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5460">
-          <caret line="364" column="51" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-fragment/27.1.1/94732bda44fba11302c58e459b7c1f47e7521bf9/support-fragment-27.1.1-sources.jar!/android/support/v4/app/Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="35310">
@@ -3417,14 +3467,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/PeripheralModeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -3467,13 +3509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32835">
           <caret line="2354" selection-start-line="2354" selection-end-line="2354" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-27/android.jar!/android/view/View.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1033">
-          <caret line="1453" column="13" selection-start-line="1453" selection-start-column="13" selection-end-line="1453" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -3658,24 +3693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5925">
-          <caret line="395" column="47" selection-start-line="395" selection-start-column="18" selection-end-line="395" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="817" column="40" selection-start-line="817" selection-start-column="40" selection-end-line="817" selection-end-column="40" />
-          <folding>
-            <element signature="e#34685#34686#0" expanded="true" />
-            <element signature="e#34738#34739#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="518">
@@ -3697,24 +3714,139 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/build/generated/not_namespaced_r_class_sources/debug/processDebugResources/r/com/adafruit/bluefruit/le/connect/R.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
-          <folding>
-            <element signature="e#1323#1350#0" expanded="true" />
-            <element signature="e#1963#2008#0" expanded="true" />
-            <element signature="e#2643#2669#0" expanded="true" />
-            <element signature="e#6361#6403#0" expanded="true" />
-            <element signature="e#6405#6446#0" expanded="true" />
-            <element signature="e#7393#7435#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="416">
+          <caret line="4834" column="28" selection-start-line="4834" selection-start-column="28" selection-end-line="4834" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_neopixel_colorpicker.xml">
       <provider editor-type-id="text-editor">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-27/android.jar!/android/view/View.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="2864" column="13" selection-start-line="2864" selection-start-column="13" selection-end-line="2864" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/border_gray.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bordered_button.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="65" column="8" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="416" column="40" selection-start-line="416" selection-start-column="18" selection-end-line="416" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/BluefruitApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="67" column="32" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
+          <folding>
+            <element signature="e#1889#1890#0" expanded="true" />
+            <element signature="e#1930#1931#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2400">
+          <caret line="1063" column="48" selection-start-line="1063" selection-start-column="48" selection-end-line="1063" selection-end-column="48" />
+          <folding>
+            <element signature="e#5680#5913#0" expanded="true" />
+            <element signature="e#5912#5913#0" expanded="true" />
+            <element signature="e#7130#7159#0" expanded="true" />
+            <element signature="e#10339#10400#0" expanded="true" />
+            <element signature="e#19065#19099#0" expanded="true" />
+            <element signature="e#20336#20377#0" expanded="true" />
+            <element signature="e#20379#20419#0" expanded="true" />
+            <element signature="e#23552#23608#0" expanded="true" />
+            <element signature="e#23650#23705#0" expanded="true" />
+            <element signature="e#24861#24904#0" expanded="true" />
+            <element signature="e#24942#24992#0" expanded="true" />
+            <element signature="e#28897#28947#0" expanded="true" />
+            <element signature="e#31250#31289#0" expanded="true" />
+            <element signature="e#34016#34053#0" expanded="true" />
+            <element signature="e#34055#34095#0" expanded="true" />
+            <element signature="e#34097#34128#0" expanded="true" />
+            <element signature="e#34130#34169#0" expanded="true" />
+            <element signature="e#34171#34206#0" expanded="true" />
+            <element signature="e#34264#34294#0" expanded="true" />
+            <element signature="e#34296#34334#0" expanded="true" />
+            <element signature="e#41539#41595#0" expanded="true" />
+            <element signature="e#42553#42586#0" expanded="true" />
+            <element signature="e#42588#42622#0" expanded="true" />
+            <element signature="e#42624#42657#0" expanded="true" />
+            <element signature="e#42888#42919#0" expanded="true" />
+            <element signature="e#42921#42952#0" expanded="true" />
+            <element signature="e#42954#42985#0" expanded="true" />
+            <element signature="e#42987#43018#0" expanded="true" />
+            <element signature="e#44354#44842#0" expanded="true" />
+            <element signature="e#44841#44842#0" expanded="true" />
+            <element signature="e#45021#45679#0" expanded="true" />
+            <element signature="e#45678#45679#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/adafruit/bluefruit/le/connect/app/ControllerColorPickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="212" selection-start-line="212" selection-end-line="212" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1768#1795#0" expanded="true" />
+            <element signature="e#2681#2726#0" expanded="true" />
+            <element signature="e#3361#3387#0" expanded="true" />
+            <element signature="e#6216#6241#0" expanded="true" />
+            <element signature="e#6562#6784#0" expanded="true" />
+            <element signature="e#6783#6784#0" expanded="true" />
+            <element signature="e#6959#6982#0" expanded="true" />
+            <element signature="e#7303#7525#0" expanded="true" />
+            <element signature="e#7524#7525#0" expanded="true" />
+            <element signature="e#13891#13933#0" expanded="true" />
+            <element signature="e#13935#13976#0" expanded="true" />
+            <element signature="e#14923#14965#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_controller_colorpicker.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
         <state />

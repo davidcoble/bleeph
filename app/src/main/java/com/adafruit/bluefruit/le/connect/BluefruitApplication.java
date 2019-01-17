@@ -15,10 +15,14 @@ public class BluefruitApplication extends Application {
     private static boolean mIsActivityVisible;
     private RefWatcher mRefWatcher;
 
+    private static Context applicationContext;
+
     // region Lifecycle
     @Override
     public void onCreate() {
         super.onCreate();
+
+        applicationContext = getApplicationContext();
 
         // Setup LeakCanary
         if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -60,4 +64,10 @@ public class BluefruitApplication extends Application {
     }
 
     // endregion
+
+    public static Context getAppContext() {
+        return applicationContext;
+    }
+
+
 }

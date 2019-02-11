@@ -120,7 +120,7 @@ public class ScannerFragment extends Fragment implements ScannerStatusFragmentDi
     @Override
     public void onStart() {
         super.onStart();
-        filtersNameEditText.setText("bleeph");
+        filtersNameEditText.setText("snarf");
     }
 
     @Override

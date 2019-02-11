@@ -54,6 +54,10 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
     private final static String kPreferences_color = "color";
 
     private final static int kFirstTimeColor = 0x0000ff;
+    private final static int kModeCodeSwirl = 1;
+    private final static int kModeCodeReverse = 2;
+    private final static int kModeCodeTwist = 3;
+    private final static int kModeCodeRainbow = 4;
 
     // UI
     private ColorPicker mColorPicker;
@@ -197,10 +201,13 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
                     j++;
                 }
             }
-            mListener.onSendMode(1, j, colors);
+            mListener.onSendMode(kModeCodeSwirl, j, colors);
+        });
+        view.findViewById(R.id.modeButtonRainbow).setOnClickListener(view1 -> {
+            mListener.onSendMode(kModeCodeRainbow);
         });
         view.findViewById(R.id.modeButtonReverse).setOnClickListener(view1 -> {
-            mListener.onSendMode(2);
+            mListener.onSendMode(kModeCodeReverse);
         });
         view.findViewById(R.id.modeButtonTwist).setOnClickListener(view1 -> {
             int j = 0;
@@ -210,7 +217,7 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
                     j++;
                 }
             }
-            mListener.onSendMode(3, j, colors);
+            mListener.onSendMode(kModeCodeTwist, j, colors);
         });
 //        Button sendButton = view.findViewById(R.id.sendButton);
 //        sendButton.setOnClickListener(view1 -> {

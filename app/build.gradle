@@ -10,7 +10,7 @@ android {
         versionName "3.0.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        resValue "string", "app_name", "Bluefruit"
+        resValue "string", "app_name", "Bleeph"
     }
 
     compileOptions {
@@ -27,7 +27,7 @@ android {
             initWith debug
 
             applicationIdSuffix ".beta"
-            resValue "string", "app_name", "Bluefruit Beta"
+            resValue "string", "app_name", "Bleeph Beta"
         }
 
         release {

@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.adafruit.bluefruit.le.connect.BluefruitApplication;
 import com.adafruit.bluefruit.le.connect.BuildConfig;
 import com.adafruit.bluefruit.le.connect.R;
-import com.larswerkman.holocolorpicker.ColorPicker;
-import com.larswerkman.holocolorpicker.SVBar;
+import com.adafruit.bluefruit.le.connect.app.colorPicker.ColorPicker;
+import com.adafruit.bluefruit.le.connect.app.colorPicker.SVBar;
 import com.squareup.leakcanary.RefWatcher;
 
 public class NeopixelColorPickerFragment extends AppCompatDialogFragment implements ColorPicker.OnColorChangedListener {
@@ -156,7 +156,7 @@ public class NeopixelColorPickerFragment extends AppCompatDialogFragment impleme
 
         final float wComponent = mComponentWBar.getWComponent();
         wComponentColorView.setBackgroundColor(mComponentWBar.getColor());
-
+        System.out.println("Hi!  A new color density was selected!");
         final int r = (color >> 16) & 0xFF;
         final int g = (color >> 8) & 0xFF;
         final int b = (color >> 0) & 0xFF;

@@ -1,6 +1,20 @@
-package com.adafruit.bluefruit.le.connect.app.neopixel;
+package com.adafruit.bluefruit.le.connect.app.colorPicker;
+/*
+ * Copyright 2012 Lars Werkman
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-// Copy of com.adafruit.bluefruit.le.connect.app.colorPicker.SaturationBar and modified to handle ComponentW with the same visual style
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,8 +31,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.adafruit.bluefruit.le.connect.R;
 
-public class NeopixelComponentWBar extends View {
+public class SVBar extends View {
 
     /*
      * Constants used to save/restore the instance state.
@@ -26,6 +41,7 @@ public class NeopixelComponentWBar extends View {
     private static final String STATE_PARENT = "parent";
     private static final String STATE_COLOR = "color";
     private static final String STATE_SATURATION = "saturation";
+    private static final String STATE_VALUE = "value";
     private static final String STATE_ORIENTATION = "orientation";
 
     /**
@@ -102,102 +118,84 @@ public class NeopixelComponentWBar extends View {
      * The ARGB value of the currently selected color.
      */
     private int mColor;
-    private float mWComponent;
 
     /**
      * An array of floats that can be build into a {@code Color} <br>
-     * Where we can extract the color from.
+     * Where we can extract the Saturation and Value from.
      */
     private float[] mHSVColor = new float[3];
 
     /**
-     * Factor used to calculate the position to the Opacity on the bar.
+     * Factor used to calculate the position to the Saturation/Value on the bar.
      */
-    private float mPosToSatFactor;
+    private float mPosToSVFactor;
 
     /**
-     * Factor used to calculate the Opacity to the postion on the bar.
+     * Factor used to calculate the Saturation/Value to the postion on the bar.
      */
-    private float mSatToPosFactor;
+    private float mSVToPosFactor;
+
+    /**
+     * {@code ColorPicker} instance used to control the ColorPicker.
+     */
+    private ColorPicker mPicker = null;
 
     /**
      * Used to toggle orientation between vertical and horizontal.
      */
     private boolean mOrientation;
 
-    /**
-     * Interface and listener so that changes in SaturationBar are sent
-     * to the host activity/fragment
-     */
-    private Listener mListener;
-
-    /**
-     * Saturation of the latest entry of the onSaturationChangedListener.
-     */
-    private float mOldWComponent;
-
-    public interface Listener {
-        void onWComponentChanged(float wComponent);
-    }
-
-    public void setListener(Listener listener) {
-        mListener = listener;
-    }
-
-
-    public NeopixelComponentWBar(Context context) {
+    public SVBar(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public NeopixelComponentWBar(Context context, AttributeSet attrs) {
+    public SVBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
 
-    public NeopixelComponentWBar(Context context, AttributeSet attrs, int defStyle) {
+    public SVBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
     }
 
     private void init(AttributeSet attrs, int defStyle) {
         final TypedArray a = getContext().obtainStyledAttributes(attrs,
-                com.larswerkman.holocolorpicker.R.styleable.ColorBars, defStyle, 0);
+                R.styleable.ColorBars, defStyle, 0);
         final Resources b = getContext().getResources();
 
         mBarThickness = a.getDimensionPixelSize(
-                com.larswerkman.holocolorpicker.R.styleable.ColorBars_bar_thickness,
-                b.getDimensionPixelSize(com.larswerkman.holocolorpicker.R.dimen.bar_thickness));
-        mBarLength = a.getDimensionPixelSize(com.larswerkman.holocolorpicker.R.styleable.ColorBars_bar_length,
-                b.getDimensionPixelSize(com.larswerkman.holocolorpicker.R.dimen.bar_length));
+                R.styleable.ColorBars_bar_thickness,
+                b.getDimensionPixelSize(R.dimen.bar_thickness));
+        mBarLength = a.getDimensionPixelSize(R.styleable.ColorBars_bar_length,
+                b.getDimensionPixelSize(R.dimen.bar_length));
         mPreferredBarLength = mBarLength;
         mBarPointerRadius = a.getDimensionPixelSize(
-                com.larswerkman.holocolorpicker.R.styleable.ColorBars_bar_pointer_radius,
-                b.getDimensionPixelSize(com.larswerkman.holocolorpicker.R.dimen.bar_pointer_radius));
+                R.styleable.ColorBars_bar_pointer_radius,
+                b.getDimensionPixelSize(R.dimen.bar_pointer_radius));
         mBarPointerHaloRadius = a.getDimensionPixelSize(
-                com.larswerkman.holocolorpicker.R.styleable.ColorBars_bar_pointer_halo_radius,
-                b.getDimensionPixelSize(com.larswerkman.holocolorpicker.R.dimen.bar_pointer_halo_radius));
+                R.styleable.ColorBars_bar_pointer_halo_radius,
+                b.getDimensionPixelSize(R.dimen.bar_pointer_halo_radius));
         mOrientation = a.getBoolean(
-                com.larswerkman.holocolorpicker.R.styleable.ColorBars_bar_orientation_horizontal, ORIENTATION_DEFAULT);
+                R.styleable.ColorBars_bar_orientation_horizontal, ORIENTATION_DEFAULT);
 
         a.recycle();
 
         mBarPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBarPaint.setShader(shader);
 
-        mBarPointerPosition = mBarLength + mBarPointerHaloRadius;
+        mBarPointerPosition = (mBarLength / 2) + mBarPointerHaloRadius;
 
         mBarPointerHaloPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBarPointerHaloPaint.setColor(Color.BLACK);
         mBarPointerHaloPaint.setAlpha(0x50);
 
         mBarPointerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBarPointerPaint.setColor(Color.BLACK);     // Initial color for pointer
+        mBarPointerPaint.setColor(0xff81ff00);
 
-        mPosToSatFactor = ((float) 0.1) / ((float) mBarLength);
-        mSatToPosFactor = ((float) mBarLength) / ((float) 0.1);
-
-        mColor = Color.BLACK;       // Initial color
+        mPosToSVFactor = 1 / ((float) mBarLength / 2);
+        mSVToPosFactor = ((float) mBarLength / 2) / 1;
     }
 
     @Override
@@ -209,7 +207,8 @@ public class NeopixelComponentWBar extends View {
         int measureSpec;
         if (mOrientation == ORIENTATION_HORIZONTAL) {
             measureSpec = widthMeasureSpec;
-        } else {
+        }
+        else {
             measureSpec = heightMeasureSpec;
         }
         int lengthMode = MeasureSpec.getMode(measureSpec);
@@ -218,18 +217,21 @@ public class NeopixelComponentWBar extends View {
         int length;
         if (lengthMode == MeasureSpec.EXACTLY) {
             length = lengthSize;
-        } else if (lengthMode == MeasureSpec.AT_MOST) {
+        }
+        else if (lengthMode == MeasureSpec.AT_MOST) {
             length = Math.min(intrinsicSize, lengthSize);
-        } else {
+        }
+        else {
             length = intrinsicSize;
         }
 
         int barPointerHaloRadiusx2 = mBarPointerHaloRadius * 2;
         mBarLength = length - barPointerHaloRadiusx2;
-        if (mOrientation == ORIENTATION_VERTICAL) {
+        if(mOrientation == ORIENTATION_VERTICAL) {
             setMeasuredDimension(barPointerHaloRadiusx2,
                     (mBarLength + barPointerHaloRadiusx2));
-        } else {
+        }
+        else {
             setMeasuredDimension((mBarLength + barPointerHaloRadiusx2),
                     barPointerHaloRadiusx2);
         }
@@ -249,7 +251,8 @@ public class NeopixelComponentWBar extends View {
                     (mBarPointerHaloRadius - (mBarThickness / 2)),
                     (mBarLength + (mBarPointerHaloRadius)),
                     (mBarPointerHaloRadius + (mBarThickness / 2)));
-        } else {
+        }
+        else {
             x1 = mBarThickness;
             y1 = (mBarLength + mBarPointerHaloRadius);
             mBarLength = h - (mBarPointerHaloRadius * 2);
@@ -260,31 +263,34 @@ public class NeopixelComponentWBar extends View {
         }
 
         // Update variables that depend of mBarLength.
-        if (!isInEditMode()) {
+        if(!isInEditMode()){
             shader = new LinearGradient(mBarPointerHaloRadius, 0,
-                    x1, y1, new int[]{
-                    Color.BLACK,
-                    Color.WHITE}, null,
-                    Shader.TileMode.CLAMP);
+                    x1, y1, new int[] {
+                    0xffffffff, Color.HSVToColor(mHSVColor), 0xff000000 },
+                    null, Shader.TileMode.CLAMP);
         } else {
             shader = new LinearGradient(mBarPointerHaloRadius, 0,
-                    x1, y1, new int[]{
-                    Color.BLACK, Color.WHITE}, null, Shader.TileMode.CLAMP);
+                    x1, y1, new int[] {
+                    0xffffffff, 0xff81ff00, 0xff000000 }, null,
+                    Shader.TileMode.CLAMP);
             Color.colorToHSV(0xff81ff00, mHSVColor);
         }
 
         mBarPaint.setShader(shader);
-        mPosToSatFactor = ((float) 0.1) / ((float) mBarLength);
-        mSatToPosFactor = ((float) mBarLength) / ((float) 0.1);
-
-        //float[] hsvColor = new float[3];
-        //Color.colorToHSV(mColor, hsvColor);
-        float wComponent = Color.red(mColor) / 255f;
-
-        if (!isInEditMode()) {
-            mBarPointerPosition = Math.round((mSatToPosFactor * wComponent)+ mBarPointerHaloRadius);
+        mPosToSVFactor = 1 / ((float) mBarLength / 2);
+        mSVToPosFactor = ((float) mBarLength / 2) / 1;
+        float[] hsvColor = new float[3];
+        Color.colorToHSV(mColor, hsvColor);
+        if (hsvColor[1] < hsvColor[2]) {
+            mBarPointerPosition = Math.round((mSVToPosFactor * hsvColor[1])
+                    + mBarPointerHaloRadius);
         } else {
-            mBarPointerPosition = mBarLength + mBarPointerHaloRadius;
+            mBarPointerPosition = Math
+                    .round((mSVToPosFactor * (1 - hsvColor[2]))
+                            + mBarPointerHaloRadius + (mBarLength / 2));
+        }
+        if(isInEditMode()){
+            mBarPointerPosition = (mBarLength / 2) + mBarPointerHaloRadius;
         }
     }
 
@@ -298,7 +304,8 @@ public class NeopixelComponentWBar extends View {
         if (mOrientation == ORIENTATION_HORIZONTAL) {
             cX = mBarPointerPosition;
             cY = mBarPointerHaloRadius;
-        } else {
+        }
+        else {
             cX = mBarPointerHaloRadius;
             cY = mBarPointerPosition;
         }
@@ -307,7 +314,7 @@ public class NeopixelComponentWBar extends View {
         canvas.drawCircle(cX, cY, mBarPointerHaloRadius, mBarPointerHaloPaint);
         // Draw the pointer.
         canvas.drawCircle(cX, cY, mBarPointerRadius, mBarPointerPaint);
-    }
+    };
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -317,14 +324,15 @@ public class NeopixelComponentWBar extends View {
         float dimen;
         if (mOrientation == ORIENTATION_HORIZONTAL) {
             dimen = event.getX();
-        } else {
+        }
+        else {
             dimen = event.getY();
         }
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mIsMovingPointer = true;
-                // Check whether the user pressed on (or near) the pointer
+                // Check whether the user pressed on the pointer
                 if (dimen >= (mBarPointerHaloRadius)
                         && dimen <= (mBarPointerHaloRadius + mBarLength)) {
                     mBarPointerPosition = Math.round(dimen);
@@ -341,24 +349,30 @@ public class NeopixelComponentWBar extends View {
                         mBarPointerPosition = Math.round(dimen);
                         calculateColor(Math.round(dimen));
                         mBarPointerPaint.setColor(mColor);
+                        if (mPicker != null) {
+                            mPicker.setNewCenterColor(mColor);
+                            mPicker.changeOpacityBarColor(mColor);
+                        }
                         invalidate();
                     } else if (dimen < mBarPointerHaloRadius) {
                         mBarPointerPosition = mBarPointerHaloRadius;
-                        mColor = Color.BLACK;
-                        mWComponent = 0f;
+                        mColor = Color.WHITE;
                         mBarPointerPaint.setColor(mColor);
+                        if (mPicker != null) {
+                            mPicker.setNewCenterColor(mColor);
+                            mPicker.changeOpacityBarColor(mColor);
+                        }
                         invalidate();
                     } else if (dimen > (mBarPointerHaloRadius + mBarLength)) {
                         mBarPointerPosition = mBarPointerHaloRadius + mBarLength;
-                        mColor = Color.WHITE;//Color.HSVToColor(mHSVColor);
-                        mWComponent = 1f;
+                        mColor = Color.BLACK;
                         mBarPointerPaint.setColor(mColor);
+                        if (mPicker != null) {
+                            mPicker.setNewCenterColor(mColor);
+                            mPicker.changeOpacityBarColor(mColor);
+                        }
                         invalidate();
                     }
-                }
-                if (mListener != null && mOldWComponent != mWComponent) {
-                    mListener.onWComponentChanged(mWComponent);
-                    mOldWComponent = mWComponent;
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -369,47 +383,74 @@ public class NeopixelComponentWBar extends View {
     }
 
     /**
+     * Set the pointer on the bar. With the saturation value.
+     *
+     * @param saturation float between 0 and 1
+     */
+    public void setSaturation(float saturation) {
+        mBarPointerPosition = Math.round((mSVToPosFactor * saturation)
+                + mBarPointerHaloRadius);
+        calculateColor(mBarPointerPosition);
+        mBarPointerPaint.setColor(mColor);
+        // Check whether the Saturation/Value bar is added to the ColorPicker
+        // wheel
+        if (mPicker != null) {
+            mPicker.setNewCenterColor(mColor);
+            mPicker.changeOpacityBarColor(mColor);
+        }
+        invalidate();
+    }
+
+    /**
+     * Set the pointer on the bar. With the Value value.
+     *
+     * @param value float between 0 and 1
+     */
+    public void setValue(float value) {
+        mBarPointerPosition = Math.round((mSVToPosFactor * (1 - value))
+                + mBarPointerHaloRadius + (mBarLength / 2));
+        calculateColor(mBarPointerPosition);
+        mBarPointerPaint.setColor(mColor);
+        // Check whether the Saturation/Value bar is added to the ColorPicker
+        // wheel
+        if (mPicker != null) {
+            mPicker.setNewCenterColor(mColor);
+            mPicker.changeOpacityBarColor(mColor);
+        }
+        invalidate();
+    }
+
+    /**
      * Set the bar color. <br>
      * <br>
      * Its discouraged to use this method.
      *
      * @param color
      */
-    /*
     public void setColor(int color) {
         int x1, y1;
-        if (mOrientation == ORIENTATION_HORIZONTAL) {
+        if(mOrientation) {
             x1 = (mBarLength + mBarPointerHaloRadius);
             y1 = mBarThickness;
-        } else {
+        }        else {
             x1 = mBarThickness;
             y1 = (mBarLength + mBarPointerHaloRadius);
         }
 
         Color.colorToHSV(color, mHSVColor);
         shader = new LinearGradient(mBarPointerHaloRadius, 0,
-                x1, y1, new int[]{
-                Color.BLACK, color}, null,
+                x1, y1, new int[] {Color.WHITE, color, Color.BLACK}, null,
                 Shader.TileMode.CLAMP);
         mBarPaint.setShader(shader);
         calculateColor(mBarPointerPosition);
         mBarPointerPaint.setColor(mColor);
+        if (mPicker != null) {
+            mPicker.setNewCenterColor(mColor);
+            if(mPicker.hasOpacityBar())
+                mPicker.changeOpacityBarColor(mColor);
+        }
         invalidate();
-    }*/
-
-    /**
-     * Set the pointer on the bar. With the opacity value.
-     *
-     * @param saturation float between 0 and 1
-     */
-    /*
-    public void setSaturation(float saturation) {
-        mBarPointerPosition = Math.round((mSatToPosFactor * saturation))
-                + mBarPointerHaloRadius;
-        calculateColor(mBarPointerPosition);
-        mBarPointerPaint.setColor(mColor);
-        invalidate();
-    }*/
+    }
 
     /**
      * Calculate the color selected by the pointer on the bar.
@@ -418,38 +459,46 @@ public class NeopixelComponentWBar extends View {
      */
     private void calculateColor(int coord) {
         coord = coord - mBarPointerHaloRadius;
-        if (coord < 0) {
-            coord = 0;
-        } else if (coord > mBarLength) {
-            coord = mBarLength;
+        if (coord > (mBarLength / 2) && (coord < mBarLength)) {
+            mColor = Color
+                    .HSVToColor(new float[] {
+                            mHSVColor[0], 1f, 1 - (mPosToSVFactor * (coord - (mBarLength / 2)))
+                    });
+        } else if (coord > 0 && coord < mBarLength) {
+            mColor = Color.HSVToColor(new float[]{
+                    mHSVColor[0], (mPosToSVFactor * coord), 1f
+            });
+        } else if(coord == (mBarLength / 2)){
+            mColor = Color.HSVToColor(new float[]{
+                    mHSVColor[0], 1f, 1f
+            });
+        } else if (coord <= 0) {
+            mColor = Color.WHITE;
+        } else if (coord >= mBarLength) {
+            mColor = Color.BLACK;
         }
-        mColor = Color.HSVToColor ( new float[]{mHSVColor[0], (mPosToSatFactor * coord), 1f});
-
-//        mWComponent = (coord / (float) mBarLength);
-//        final byte colorComponent = (byte) Math.round((mWComponent*255f));
-//        mColor = Color.argb(255, colorComponent, colorComponent, colorComponent);
     }
 
+    /**
+     * Get the currently selected color.
+     *
+     * @return The ARGB value of the currently selected color.
+     */
     public int getColor() {
         return mColor;
     }
 
-    public float getWComponent() {
-        return mWComponent;
-    }
-
-    public void setWComponent(float wComponent) {
-        /*
-        mWComponent = wComponent;
-        byte colorComponent = (byte) Math.round(wComponent * 255);
-        mColor = Color.argb(255, colorComponent, colorComponent, colorComponent);
-        invalidate();
-*/
-
-        mBarPointerPosition = Math.round((mSatToPosFactor * wComponent) + mBarPointerHaloRadius);
-        calculateColor(mBarPointerPosition);
-        mBarPointerPaint.setColor(mColor);
-        invalidate();
+    /**
+     * Adds a {@code ColorPicker} instance to the bar. <br>
+     * <br>
+     * WARNING: Don't change the color picker. it is done already when the bar
+     * is added to the ColorPicker
+     *
+     * @see com.adafruit.bluefruit.le.connect.app.colorPicker.ColorPicker#addSVBar(com.adafruit.bluefruit.le.connect.app.colorPicker.SVBar)
+     * @param picker
+     */
+    public void setColorPicker(ColorPicker picker) {
+        mPicker = picker;
     }
 
     @Override
@@ -458,13 +507,15 @@ public class NeopixelComponentWBar extends View {
 
         Bundle state = new Bundle();
         state.putParcelable(STATE_PARENT, superState);
-        /*
         state.putFloatArray(STATE_COLOR, mHSVColor);
-
         float[] hsvColor = new float[3];
         Color.colorToHSV(mColor, hsvColor);
-        state.putFloat(STATE_SATURATION, hsvColor[1]);
-*/
+        if (hsvColor[1] < hsvColor[2]) {
+            state.putFloat(STATE_SATURATION, hsvColor[1]);
+        } else {
+            state.putFloat(STATE_VALUE, hsvColor[2]);
+        }
+
         return state;
     }
 
@@ -474,11 +525,12 @@ public class NeopixelComponentWBar extends View {
 
         Parcelable superState = savedState.getParcelable(STATE_PARENT);
         super.onRestoreInstanceState(superState);
-/*
 
         setColor(Color.HSVToColor(savedState.getFloatArray(STATE_COLOR)));
-        setSaturation(savedState.getFloat(STATE_SATURATION));
-        */
+        if (savedState.containsKey(STATE_SATURATION)) {
+            setSaturation(savedState.getFloat(STATE_SATURATION));
+        } else {
+            setValue(savedState.getFloat(STATE_VALUE));
+        }
     }
-
 }

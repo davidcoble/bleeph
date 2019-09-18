@@ -2,10 +2,7 @@ package com.adafruit.bluefruit.le.connect.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,24 +23,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.adafruit.bluefruit.le.connect.BluefruitApplication;
-import com.adafruit.bluefruit.le.connect.BuildConfig;
 import com.adafruit.bluefruit.le.connect.R;
+import com.adafruit.bluefruit.le.connect.app.colorPicker.ColorPicker;
+import com.adafruit.bluefruit.le.connect.app.colorPicker.SaturationBar;
+import com.adafruit.bluefruit.le.connect.app.colorPicker.ValueBar;
 import com.adafruit.bluefruit.le.connect.app.neopixel.NeopixelColorPickerFragment;
-import com.larswerkman.holocolorpicker.ColorPicker;
-import com.larswerkman.holocolorpicker.SaturationBar;
-import com.larswerkman.holocolorpicker.ValueBar;
-import com.squareup.leakcanary.RefWatcher;
 
-import java.lang.reflect.Field;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ControllerColorPickerFragment extends Fragment implements ColorPicker.OnColorChangedListener {
+public class ControllerColorPickerFragment extends Fragment implements ColorPicker.OnColorChangedListener,
+        ValueBar.OnValueChangedListener
+{
     // Log
     @SuppressWarnings("unused")
     private final static String TAG = ControllerColorPickerFragment.class.getSimpleName();
@@ -54,10 +48,11 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
     private final static String kPreferences_color = "color";
 
     private final static int kFirstTimeColor = 0x0000ff;
-    private final static int kModeCodeSwirl = 1;
-    private final static int kModeCodeReverse = 2;
-    private final static int kModeCodeTwist = 3;
-    private final static int kModeCodeRainbow = 4;
+    private final static byte kModeCodeSwirl = 1;
+    private final static byte kModeCodeReverse = 2;
+    private final static byte kModeCodeTwist = 3;
+    private final static byte kModeCodeRainbow = 4;
+    private final static byte kModeCodeMarquee = 5;
 
     // UI
     private ColorPicker mColorPicker;
@@ -71,8 +66,10 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
     private Button[] colorButton = new Button[10];
     private int[] colors = new int[10];
     private int[] buttonColor = new int[10];
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor editor;
+    private int[] buttonColorSV = new int[10];
+    private float mColorValue = 10;
+    private SharedPreferences mSharedPreferences = BluefruitApplication.getAppContext().getSharedPreferences("BleephSeetings", 0);
+    private SharedPreferences.Editor editor = mSharedPreferences.edit();
 
     // region Lifecycle
     @SuppressWarnings("UnnecessaryLocalVariable")
@@ -115,10 +112,7 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
         mRgbTextView = view.findViewById(R.id.rgbTextView);
         mSelectedColorAlert = view.findViewById(R.id.color_selected);
 
-        mSharedPreferences = BluefruitApplication.getAppContext().getSharedPreferences("BleephSeetings", 0);
-        editor = mSharedPreferences.edit();
-
-
+        mColorValue = mSharedPreferences.getFloat("mColorValue", 0.1f);
         LinearLayout row = view.findViewById(R.id.color_button_row_01);
         for(int i = 0 ; i < row.getChildCount(); i++) {
             colorButton[i] = (Button) row.getChildAt(i);
@@ -128,7 +122,7 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
             colorButton[i+5] = (Button) row.getChildAt(i);
         }
         for(int i = 0 ; i < colorButton.length; i++ ) {
-            colorButton[i].setTextColor(0xffffffff);
+            colorButton[i].setTextColor(0xFF000000);
             int sel = mSharedPreferences.getInt("colorButtonSelected" + i, 0);
             if(sel == 1) {
                 colorButton[i].setText("Yes");
@@ -140,15 +134,16 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
             int col = mSharedPreferences.getInt("colorButtonBG" + i, 0);
             colorButton[i].setBackgroundColor(col);
             col = mSharedPreferences.getInt("color" + i, 0);
-            buttonColor[i] = col;
+            buttonColorSV[i] = col;
+
             colorButton[i].setTag(i);
             colorButton[i].setOnClickListener(view1 -> {
                 Button button = (Button) view1;
                 Integer x = (Integer)button.getTag();
-                int bgColor = lightenColor(mSelectedColor);
-                button.setBackgroundColor(bgColor);
+                button.setBackgroundColor(mSelectedColor);
                 buttonColor[x] = mSelectedColor;
-                editor.putInt("colorButtonBG" + x, bgColor);
+                buttonColorSV[x] = mSelectedColor;
+                editor.putInt("colorButtonBG" + x, mSelectedColor);
                 editor.putInt("color" + x, mSelectedColor);
                 editor.apply();
                 mColorPicker.setOldCenterColor(mSelectedColor);
@@ -161,7 +156,7 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
                     mSelectedColorAlert.setVisibility(View.VISIBLE);
                     button.setText("No");
                     editor.putInt("colorButtonSelected" + x, 0);
-                    button.setTextColor(0xffffffff);
+                    button.setTextColor(0xFF000000);
                     button.setSelected(false);
                     TimerTask timerTask = new TimerTask() {
                         @Override
@@ -176,7 +171,7 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
                     mSelectedColorAlert.setVisibility(View.VISIBLE);
                     button.setText("Yes");
                     editor.putInt("colorButtonSelected" + x, 1);
-                    button.setTextColor(0xffffffff);
+                    button.setTextColor(0xFF000000);
                     button.setSelected(true);
                     TimerTask timerTask = new TimerTask() {
                         @Override
@@ -192,8 +187,55 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
             });
         }
 
+        class SendColorTimer extends TimerTask {
+            byte colorIndex;
+            public SendColorTimer(byte colorIndex) {
+                this.colorIndex = colorIndex;
+            };
+            public void run() {
+                mListener.onSendColor(colors[colorIndex], colorIndex);
+            }
+        };
+        class SendNumColorsTimer extends TimerTask {
+            byte numColors;
+            public SendNumColorsTimer(byte numColors) {
+                this.numColors = numColors;
+            }
+            @Override
+            public void run() {
+                mListener.onSendNumColors(numColors);
+            }
+        }
+        class SendModeTimer extends TimerTask {
+            byte mode;
+            public SendModeTimer(byte mode) {
+                this.mode = mode;
+            }
+            @Override
+            public void run() {
+                mListener.onSendMode(mode);
+            }
+        }
+
         Button buttonSwirl = view.findViewById(R.id.modeButtonSwirl);
         buttonSwirl.setOnClickListener(view1 -> {
+            Log.d(TAG, "Swirl button clicked.");
+            Timer timer = new Timer();
+            timer.schedule(new SendModeTimer(kModeCodeSwirl), 3000);
+            byte j = 0;
+            for(int i = 0; i < 10; i++) {
+                if(colorButton[i].isSelected()) {
+                    colors[j] = buttonColor[i];
+                    j++;
+                }
+            }
+            timer.schedule(new SendNumColorsTimer(j), 100);
+            while (j > 0) {
+                timer.schedule(new SendColorTimer((byte)(j-1)), (j + 1) * 100);
+                j--;
+            }
+        });
+        view.findViewById(R.id.modeButtonMarquee).setOnClickListener(view1 -> {
             int j = 0;
             for(int i = 0; i < 10; i++) {
                 if(colorButton[i].isSelected()) {
@@ -201,15 +243,17 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
                     j++;
                 }
             }
-            mListener.onSendMode(kModeCodeSwirl, j, colors);
+//            mListener.onSendMode(kModeCodeMarquee, j, colors);
         });
         view.findViewById(R.id.modeButtonRainbow).setOnClickListener(view1 -> {
             mListener.onSendMode(kModeCodeRainbow);
         });
         view.findViewById(R.id.modeButtonReverse).setOnClickListener(view1 -> {
-            mListener.onSendMode(kModeCodeReverse);
+//            mListener.onSendMode(kModeCodeReverse, (int)(mColorValue * 255));
         });
         view.findViewById(R.id.modeButtonTwist).setOnClickListener(view1 -> {
+            Log.d(TAG, "Twist button clicked.");
+            mListener.onSendMode(kModeCodeTwist);
             int j = 0;
             for(int i = 0; i < 10; i++) {
                 if(colorButton[i].isSelected()) {
@@ -217,7 +261,6 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
                     j++;
                 }
             }
-            mListener.onSendMode(kModeCodeTwist, j, colors);
         });
 //        Button sendButton = view.findViewById(R.id.sendButton);
 //        sendButton.setOnClickListener(view1 -> {
@@ -228,12 +271,17 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
 
         SaturationBar mSaturationBar = view.findViewById(R.id.brightnessbar);
         ValueBar mValueBar = view.findViewById(R.id.valuebar);
+        mValueBar.setOnValueChangedListener(this);
+        float mColorValue = mSharedPreferences.getFloat("mColorValue", 0.5f);
+        System.err.println("mColorValue = " + mColorValue);
+        mValueBar.setColor(Color.HSVToColor(new float[]{1.0f, 1.0f, mColorValue}));
         mColorPicker = view.findViewById(R.id.colorPicker);
         if (mColorPicker != null) {
             mColorPicker.addSaturationBar(mSaturationBar);
             mColorPicker.addValueBar(mValueBar);
             mColorPicker.setOnColorChangedListener(this);
         }
+        mValueBar.setValue(mColorValue);
 
         final Context context = getContext();
         if (context != null && kPersistValues) {
@@ -248,101 +296,6 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
         onColorChanged(mSelectedColor);
     }
 
-    private int lightenColor(int color) {
-        int r = (color >> 16) & 0xFF;
-        int g = (color >> 8) & 0xFF;
-        int b = (color >> 0) & 0xFF;
-
-        int first, second, third, newFirst, newSecond, newThird;
-        int order = 6;
-        // rgb = 0, rbg = 1, grb = 2, gbr = 3, brg = 4, bgr = 5
-        if(r > b && r > g) {
-            if(b > g) {
-                order = 0;
-                first = r;
-                second = g;
-                third = b;
-            } else {
-                order = 1;
-                first = r;
-                second = b;
-                third = g;
-            }
-        } else if (g > r && g > b) {
-            if (r > b) {
-                order = 2;
-                first = g;
-                second = r;
-                third = b;
-            } else {
-                order = 3;
-                first = g;
-                second = b;
-                third = r;
-            }
-        } else {
-            if(r > g) {
-                order = 4;
-                first = b;
-                second = r;
-                third = g;
-            } else {
-                order = 5;
-                first = b;
-                second = g;
-                third = r;
-            }
-        }
-        if(first == 0) {
-            first = 1;
-            second = 1;
-            third = 1;
-        }
-        newFirst = (first + 255) / 2;
-        newSecond = (newFirst * second) / first;
-        newThird = (newFirst * third) / first;
-        switch (order) {
-            case 0:
-                r = newFirst;
-                g = newSecond;
-                b = newThird;
-                break;
-            case 1:
-                r = newFirst;
-                b = newSecond;
-                g = newThird;
-                break;
-            case 2:
-                g = newFirst;
-                r = newSecond;
-                b = newThird;
-                break;
-            case 3:
-                g = newFirst;
-                b = newSecond;
-                r = newThird;
-                break;
-            case 4:
-                b = newFirst;
-                r = newSecond;
-                g = newThird;
-                break;
-            case 5:
-                b = newFirst;
-                g = newSecond;
-                r = newThird;
-                break;
-            default:
-                break;
-
-        }
-
-        int newColor = 0xFF000000 + (r * 0x10000) + (g * 0x100) + b;
-
-        return newColor;
-
-
-    }
 
     @Override
     public void onStop() {
@@ -363,8 +316,10 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof NeopixelColorPickerFragment.NeopixelColorPickerFragmentListener) {
+            System.err.println(("######################## 11111"));
             mListener = (ControllerColorPickerFragmentListener) context;
         } else if (getTargetFragment() instanceof ControllerColorPickerFragmentListener) {
+            System.err.println(("######################## 22222"));
             mListener = (ControllerColorPickerFragmentListener) getTargetFragment();
         }  else {
             throw new RuntimeException(context.toString() + " must implement NeopixelColorPickerFragmentListener");
@@ -392,7 +347,9 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
                 if (activity != null) {
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     if (fragmentManager != null) {
-                        CommonHelpFragment helpFragment = CommonHelpFragment.newInstance(getString(R.string.colorpicker_help_title), getString(R.string.colorpicker_help_text));
+                        CommonHelpFragment helpFragment =
+                                CommonHelpFragment.newInstance(getString(R.string.colorpicker_help_title),
+                                        getString(R.string.colorpicker_help_text));
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
                                 .replace(R.id.contentLayout, helpFragment, "Help");
                         fragmentTransaction.addToBackStack(null);
@@ -411,6 +368,14 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
     // region OnColorChangedListener
 
     @SuppressWarnings("PointlessBitwiseExpression")
+
+    private int calcColor(int color) {
+        float[] hSV = new float[3];
+        Color.colorToHSV(color, hSV);
+        hSV[2] = mColorValue;
+        return Color.HSVToColor(hSV);
+    }
+
     @Override
     public void onColorChanged(int color) {
         // Save selected color
@@ -427,14 +392,32 @@ public class ControllerColorPickerFragment extends Fragment implements ColorPick
         //mListener.onSendColorComponents(color);
     }
 
+    @Override
+    public void onValueChanged(int color) {
+        float[] hSV = new float[3];
+        Color.colorToHSV(color, hSV);
+        mColorValue = hSV[2];
+        editor.putFloat("mColorValue", mColorValue);
+        for(int i = 0 ; i < colorButton.length; i++ ) {
+            Color.colorToHSV(buttonColorSV[i], hSV);
+            hSV[2] = mColorValue;
+            buttonColor[i] = Color.HSVToColor(hSV);
+        }
+        Log.d("---", "mColorValue = " + mColorValue);
+        mListener.onSendValue((byte)(255f * mColorValue));
+    }
+
 
     // endregion
 
     // region
     interface ControllerColorPickerFragmentListener {
         void onSendColorComponents(int color);
-        void onSendMode(int mode);
-        void onSendMode(int mode, int numColors, int[] colors);
+        void onSendMode(byte mode);
+        // void onSendMode(int mode, int numColors, int[] colors);
+        void onSendNumColors(byte numColors);
+        void onSendColor(int color, byte num);
+        void onSendValue(byte value);
     }
 
     // endregion

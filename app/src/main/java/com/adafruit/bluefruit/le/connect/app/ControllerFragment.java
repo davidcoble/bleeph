@@ -63,7 +63,13 @@ import java.nio.ByteBuffer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ControllerFragment extends ConnectedPeripheralFragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, SensorEventListener, ControllerColorPickerFragment.ControllerColorPickerFragmentListener, ControllerPadFragment.ControllerPadFragmentListener, UartDataManager.UartDataManagerListener {
+public class ControllerFragment extends ConnectedPeripheralFragment implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        SensorEventListener,
+        ControllerColorPickerFragment.ControllerColorPickerFragmentListener,
+        ControllerPadFragment.ControllerPadFragmentListener,
+        UartDataManager.UartDataManagerListener {
     // Log
     private final static String TAG = ControllerFragment.class.getSimpleName();
 
@@ -269,7 +275,7 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements G
                                     break;
                                 case kModule_ColorPicker:
                                     fragment = ControllerColorPickerFragment.newInstance();
-                                    fragmentTag = "Color Picker";
+                                    fragmentTag = "Color Picker4";
                                     break;
                             }
 
@@ -1022,64 +1028,95 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements G
 
 
 
+//    @Override
+//    public void onSendMode(int mode, int numColors, int[] colors) {
+//        TimerTask timerTask = new TimerTask() {
+//            @Override
+//            public void run() {
+//                ByteBuffer buffer = ByteBuffer.allocate(2 + 1 + 1).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+//
+//                String prefix = "!M";
+//                buffer.put(prefix.getBytes());
+//
+//                buffer.put((byte) ((mode >> 0) & 0xff));
+//                buffer.put((byte) (numColors & 0xff));
+//                byte[] result = buffer.array();
+//                sendCrcData(result);
+//
+//            }
+//        };
+//        Timer timer = new Timer();
+//        timer.schedule(timerTask, 100);
+//
+//
+//        for(int i = 0; i < numColors ; i++ ) {
+//            final int x = i;
+//            timerTask = new TimerTask() {
+//                @Override
+//                public void run() {
+//                    String prefix = "!I";
+//                    ByteBuffer buffer = ByteBuffer.allocate(3 + 3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+//                    buffer.put(prefix.getBytes());
+//                    buffer.put((byte) (x & 0xFF));
+//                    buffer.put((byte) ((colors[x] >> 16) & 0xFF));
+//                    buffer.put((byte) ((colors[x] >> 8)  & 0xFF));
+//                    buffer.put((byte) ((colors[x] >> 0)  & 0xFF));
+//                    byte[] result = buffer.array();
+//                    sendCrcData(result);
+//
+//                }
+//            };
+//            timer = new Timer();
+//            timer.schedule(timerTask, (i+2) * 100);
+//        }
+//    }
+
     @Override
-    public void onSendMode(int mode, int numColors, int[] colors) {
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                ByteBuffer buffer = ByteBuffer.allocate(2 + 1 + 1).order(java.nio.ByteOrder.LITTLE_ENDIAN);
-
-                String prefix = "!M";
-                buffer.put(prefix.getBytes());
-
-                buffer.put((byte) ((mode >> 0) & 0xff));
-                buffer.put((byte) (numColors & 0xff));
-                byte[] result = buffer.array();
-                sendCrcData(result);
-
-            }
-        };
-        Timer timer = new Timer();
-        timer.schedule(timerTask, 100);
-
-
-        for(int i = 0; i < numColors ; i++ ) {
-            final int x = i;
-            timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    String prefix = "!I";
-                    ByteBuffer buffer = ByteBuffer.allocate(3 + 3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
-                    buffer.put(prefix.getBytes());
-                    buffer.put((byte) (x & 0xFF));
-                    buffer.put((byte) ((colors[x] >> 16) & 0xFF));
-                    buffer.put((byte) ((colors[x] >> 8)  & 0xFF));
-                    buffer.put((byte) ((colors[x] >> 0)  & 0xFF));
-                    byte[] result = buffer.array();
-                    sendCrcData(result);
-
-                }
-            };
-            timer = new Timer();
-            timer.schedule(timerTask, (i+2) * 100);
-        }
+    public void onSendMode(byte mode) {
+        ByteBuffer buffer = ByteBuffer.allocate(3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        String prefix = "!M";
+        buffer.put(prefix.getBytes());
+        buffer.put(mode);
+        byte[] result = buffer.array();
+        sendCrcData(result);
     }
 
     @Override
-    public void onSendMode(int mode) {
-        final byte m = (byte) ((mode >> 0) & 0xFF);
-        ByteBuffer buffer = ByteBuffer.allocate(2 + 1 * 1).order(java.nio.ByteOrder.LITTLE_ENDIAN);
-
-        // prefix
-        String prefix = "!M";
+    public void onSendValue(byte value) {
+        Log.d(TAG, "sending value = " + value);
+        ByteBuffer buffer = ByteBuffer.allocate(3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        String prefix = "!V";
         buffer.put(prefix.getBytes());
-
-        // values
-        buffer.put(m);
-
+        buffer.put(value);
         byte[] result = buffer.array();
         sendCrcData(result);
+    }
 
+    @Override
+    public void onSendNumColors(byte numColors) {
+        ByteBuffer buffer = ByteBuffer.allocate(3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        String prefix = "!N";
+        buffer.put(prefix.getBytes());
+        buffer.put(numColors);
+        byte[] result = buffer.array();
+        sendCrcData(result);
+    }
+
+    @Override
+    public void onSendColor(int color, byte num) {
+        final byte r = (byte) ((color >> 16) & 0xFF);
+        final byte g = (byte) ((color >> 8) & 0xFF);
+        final byte b = (byte) ((color >> 0) & 0xFF);
+        ByteBuffer buffer = ByteBuffer.allocate(6).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        Log.d(TAG, "onSendColor called r = " + r + " g = " + g + " b = " + b);
+        String prefix = "!I";
+        buffer.put(prefix.getBytes());
+        buffer.put(num);
+        buffer.put(r);
+        buffer.put(g);
+        buffer.put(b);
+        byte[] result = buffer.array();
+        sendCrcData(result);
     }
 
     // region ControllerColorPickerFragmentListener
@@ -1123,6 +1160,7 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements G
 
     @Override
     public void onUartRx(@NonNull byte[] data, @Nullable String peripheralIdentifier) {
+        System.err.println("#########################################1. data received byte[0] = " + data[0]);
         ControllerPadFragment controllerPadFragment = mWeakControllerPadFragment.get();
         if (controllerPadFragment != null) {
             String dataString = BleUtils.bytesToText(data, true);

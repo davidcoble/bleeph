@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.larswerkman.holocolorpicker.ColorPicker
+        <com.adafruit.bluefruit.le.connect.app.colorPicker.ColorPicker
             android:id="@+id/colorPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:text="@string/colorpicker_brightness"
                 android:textColor="@color/infotext" />
 
-            <com.larswerkman.holocolorpicker.SVBar
+            <com.adafruit.bluefruit.le.connect.app.colorPicker.SVBar
                 android:id="@+id/brightnessbar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

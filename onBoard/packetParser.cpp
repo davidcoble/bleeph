@@ -126,6 +126,7 @@ uint8_t readPacket(Adafruit_BLE *ble, uint16_t timeout)
 
   // Throw an error message if the checksum's don't match
   if (xsum != checksum)
+  
   {
     Serial.print("Checksum mismatch in packet : ");
     printHex(packetbuffer, replyidx+1);

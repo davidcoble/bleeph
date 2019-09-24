@@ -2,8 +2,8 @@ package com.adafruit.bluefruit.le.connect;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
+import com.adafruit.bluefruit.le.connect.ble.central.BlePeripheral;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -16,6 +16,8 @@ public class BluefruitApplication extends Application {
     private RefWatcher mRefWatcher;
 
     private static Context applicationContext;
+    private static BlePeripheral storedSelectedBlePeripheral;
+
 
     // region Lifecycle
     @Override
@@ -70,4 +72,11 @@ public class BluefruitApplication extends Application {
     }
 
 
+    public static void setConnectedPeripheral(BlePeripheral selectedBlePeripheral) {
+        storedSelectedBlePeripheral = selectedBlePeripheral;
+    }
+
+    public static BlePeripheral getConnectedPeripheral() {
+        return storedSelectedBlePeripheral;
+    }
 }

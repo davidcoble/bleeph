@@ -13,55 +13,142 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/connectedTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Connected to: bleeph_elder_cunningham"
+                    android:textColor="@color/white"
+                    android:visibility="visible" />
+                <TextView
+                    android:id="@+id/color_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/color_unselected"
+                    android:textColor="@color/white"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/dconnButton"
+                android:background="@color/blue_900"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/disconnect"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/color_selected"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:text="@string/color_unselected"
-                android:textColor="@color/white"
-                android:visibility="invisible" />
+            <com.adafruit.bluefruit.le.connect.app.colorPicker.ColorPicker
+                android:id="@+id/colorPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="379dp"
+                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@color/black"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:text="Brightness"/>
+                <Button
+                    android:id="@+id/increaseBrightnessButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:padding="1pt"
+                    android:minHeight="40dp"
+                    android:minWidth="40dp"
+                    android:text="+"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <TextView
+                    android:id="@+id/currentBrightnessTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:text="10"
+                    android:textColor="#fff"/>
+                <Button
+                    android:id="@+id/decreaseBrightnessButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:minHeight="40dp"
+                    android:minWidth="40dp"
+                    android:text="-"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
-            <Button
-                android:id="@+id/dconnButton"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:text="@string/disconnect"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@color/black"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:text="Speed"/>
+                <Button
+                    android:id="@+id/increaseSpeedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:minHeight="40dp"
+                    android:minWidth="40dp"
+                    android:text="+"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <TextView
+                    android:id="@+id/currentSpeedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:text="10"
+                    android:textColor="#fff"/>
+                <Button
+                    android:id="@+id/decreaseSpeedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:minHeight="40dp"
+                    android:minWidth="40dp"
+                    android:text="-"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:background="@color/black"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:text=""/>
+            </LinearLayout>
         </LinearLayout>
-
-        <com.adafruit.bluefruit.le.connect.app.colorPicker.ColorPicker
-            android:id="@+id/colorPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="379dp"
-            android:layout_gravity="center_horizontal" />
-
-        <com.adafruit.bluefruit.le.connect.app.colorPicker.SaturationBar
-            android:id="@+id/brightnessbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
-
-        <com.adafruit.bluefruit.le.connect.app.colorPicker.ValueBar
-            android:id="@+id/valuebar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="0dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -72,17 +159,31 @@
 
                 <TextView
                     android:id="@+id/rgbTextView"
-                    android:layout_width="60pt"
-                    android:layout_height="35dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|center_horizontal"
                     android:text="@string/colorpicker_rgb_format"
                     android:textColor="#ffffff" />
 
-                <View
-                    android:id="@+id/rgbColorView"
+                <Button
+                    android:id="@+id/whiteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"/>
+                <Button
+                    android:id="@+id/blackButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"/>
+                <com.adafruit.bluefruit.le.connect.app.BatteryTextView
+                    android:id="@+id/batteryInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:background="#ff0000" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="battery level:"
+                    android:textColor="#ffffff" />
+
 
             </LinearLayout>
 
@@ -271,18 +372,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/modeButtonTwist"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:text="Twist"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
                     android:id="@+id/modeButtonReverse"

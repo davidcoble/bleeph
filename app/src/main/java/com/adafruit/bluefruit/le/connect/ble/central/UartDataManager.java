@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import static java.lang.String.format;
+
 // Basic Uart Management. Use it to cache all data received and help parsing it
 public class UartDataManager implements BlePeripheralUart.UartRxHandler {
     // Constants
@@ -104,16 +106,6 @@ public class UartDataManager implements BlePeripheralUart.UartRxHandler {
 
     @Override
     public void onRxDataReceived(@NonNull byte[] data, @Nullable String identifier, int status) {
-        // Log.d(TAG, "identifier " + identifier);
-        // Log.d(TAG, "status " + status);
-        for (int i = 0; i < data.length; i++) {
-            // Log.d(TAG, "data[" + i + "] = " + data[i]);
-        }
-        if (data[0] == 1) {  // next 2 bytes are battery level.  2 bytes after that are max battery
-            int batteryVal = data[1] + 256 * data[2];
-            // TODO: display battery data somewheres.
-            // System.err.println("batteryVal = " + batteryVal);
-        }
         if (status != BluetoothGatt.GATT_SUCCESS) {
             return;
         }

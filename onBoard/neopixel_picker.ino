@@ -29,37 +29,39 @@
 /*=========================================================================
     APPLICATION SETTINGS
 
-    FACTORYRESET_ENABLE       Perform a factory reset when running this sketch
-   
-                              Enabling this will put your Bluefruit LE module
-                              in a 'known good' state and clear any config
-                              data set in previous sketches or projects, so
-                              running this at least once is a good idea.
-   
-                              When deploying your project, however, you will
-                              want to disable factory reset by setting this
-                              value to 0.  If you are making changes to your
-                              Bluefruit LE device via AT commands, and those
-                              changes aren't persisting across resets, this
-                              is the reason why.  Factory reset will erase
-                              the non-volatile memory where config data is
-                              stored, setting it back to factory default
-                              values.
-       
-                              Some sketches that require you to bond to a
-                              central device (HID mouse, keyboard, etc.)
-                              won't work at all with this feature enabled
-                              since the factory reset will clear all of the
-                              bonding data stored on the chip, meaning the
-                              central device won't be able to reconnect.
-    PIN                       Which pin on the Arduino is connected to the NeoPixels?
-    NUMPIXELS                 How many NeoPixels are attached to the Arduino?
-    -----------------------------------------------------------------------*/
+    FACTORYRESET_ENABLE
+	Perform a factory reset when running this sketch
+							Enabling this will put your Bluefruit LE module
+							in a 'known good' state and clear any config
+                            data set in previous sketches or projects, so
+							running this at least once is a good idea.
+
+							When deploying your project, however, you will
+                            want to disable factory reset by setting this
+                            value to 0.  If you are making changes to your
+
+							Bluefruit LE device via AT commands, and those
+                            changes aren't persisting across resets, this
+                            is the reason why.  Factory reset will erase
+                            the non-volatile memory where config data is
+                            stored, setting it back to factory default
+                            values.
+
+							Some sketches that require you to bond to a
+                            central device (HID mouse, keyboard, etc.)
+                            won't work at all with this feature enabled
+                            since the factory reset will clear all of the
+                            bonding data stored on the chip, meaning the
+                            central device won't be able to reconnect.
+							
+    PIN                     Which pin on the Arduino is connected to the NeoPixels?
+    NUMPIXELS               How many NeoPixels are attached to the Arduino?
+-----------------------------------------------------------------------*/
     #define FACTORYRESET_ENABLE     0
 
     #define PIN                     5
     #define NUMPIXELS               144
-	#define BLEEPHNAME 				"elora"
+	#define BLEEPHNAME 				"Elora"
     #define NUMCOLORS               10
 	
 	
@@ -118,6 +120,7 @@ extern uint8_t packetbuffer[];
 uint8_t mode;
 
 uint8_t numColors;
+uint8_t speed;
 uint32_t color[NUMCOLORS];
 uint32_t colorChangePoint[NUMCOLORS];
 //swirl state vars
@@ -355,7 +358,7 @@ uint16_t vbatInt;
 void loop(void)
 {
   if(vbatcountdown == 0) {
-    vbatcountdown = 2000;
+    vbatcountdown = 200;
     float measuredvbat = analogRead(VBATPIN);
     measuredvbat *= 2;    // we divided by 2, so multiply back
     // measuredvbat *= 3.3;  // Multiply by 3.3V, our reference voltage
@@ -369,9 +372,10 @@ void loop(void)
 	inputs[0] = 1;
     inputs[1] = vbatInt % 256;
 	inputs[2] = vbatInt / 256;
-	//Serial.print("inputs[0] = " ); Serial.println((uint8_t)inputs[0]);
-	//Serial.print("inputs[1] = " ); Serial.println((uint8_t)inputs[1]);
-	//Serial.print("inputs[2] = " ); Serial.println((uint8_t)inputs[2]);
+	// Serial.print("inputs[0] = " ); Serial.println((uint8_t)inputs[0]);
+	// Serial.print("inputs[1] = " ); Serial.println((uint8_t)inputs[1]);
+	// Serial.print("inputs[2] = " ); Serial.println((uint8_t)inputs[2]);
+	printHex(inputs, 3);
     ble.print(inputs);
   } else {
     vbatcountdown--;
@@ -382,6 +386,9 @@ void loop(void)
     case MODECODESWIRL:
       swirl();
       break;
+    case MODECODEMARQUEE:
+	  marquee();
+	  break;
     case MODECODETWIST:
       twist();
       break;
@@ -426,6 +433,14 @@ void loop(void)
 		int i = packetbuffer[2];
 		Serial.print("new numColors = "); Serial.println(i);
 		numColors = i;
+		for ( int i = 0; i < numColors ; i++ ) {
+			colorChangePoint[i] = ((i * NUMPIXELS) / numColors);
+		}
+	} else if ( packetbuffer[1] == 'S' ) {
+		int i = packetbuffer[2];
+		Serial.print("new speed = "); Serial.println(i);
+		speed = i;
+		ble_readpacket_timeout = 5 * (11 - speed)^2;
 	} else if ( packetbuffer[1] == 'V' ) {
 		Serial.println("Value!");
 		colorValueByte = packetbuffer[2];
@@ -471,6 +486,11 @@ void loop(void)
 					ss_4 = 0;
 					mode = 3;
 				}
+		} else if ( packetbuffer[2] == MODECODEMARQUEE ) {
+				Serial.println("Marquee");
+				if(mode != MODECODEMARQUEE) {
+					mode = MODECODEMARQUEE;
+				}
 		} else if ( packetbuffer[2] == MODECODERAINBOW ) {
 				Serial.println("Rainbow");
 				if (mode != MODECODERAINBOW) {
@@ -479,6 +499,36 @@ void loop(void)
 			}
 		}
     }
+}
+
+void marquee() {
+	static uint8_t firstPixel = 0;
+	static uint8_t firstColorIndex = 0;
+//	Serial.print("firstPixel = ");Serial.println(firstPixel);
+//	Serial.print("firstColorIndex = ");Serial.println(firstColorIndex);
+	uint32_t colorIndex = firstColorIndex;
+	for (uint8_t i = 0; i < NUMPIXELS; i++) {
+		if ( i % 3 == firstPixel ) {
+			pixel.setPixelColor(i, Darken(color[colorIndex]));
+			colorIndex++;
+		} else {
+			pixel.setPixelColor(i, 0);
+		}
+		if ( colorIndex >= numColors ) {
+			colorIndex = 0;
+		}
+	}
+	delay(200);
+	pixel.show();
+	firstPixel++;
+	if ( firstPixel >= 3 ) {
+		firstPixel = 0;
+		if ( firstColorIndex == 0 ) {
+			firstColorIndex = numColors-1;
+		} else {
+			firstColorIndex--;
+		}						
+	}
 }
 
 void incrementStartingColorIndex() {
@@ -545,7 +595,6 @@ void twist() {
     }
     Serial.print("delay= ");Serial.print(twist_delay);
     Serial.print("delta= ");Serial.println(twist_delay_delta);
-    ble_readpacket_timeout = twist_delay;
     uint32_t onColor = color[ss_1];
     ss_4 = ss_1;
     incrementNextColorIndex();
@@ -672,15 +721,18 @@ uint32_t Wheel(byte WheelPos) {
 }
 
 uint32_t Darken(uint32_t color) {
-  rgb_t rgb;
-  hsv_t hsv;
-  rgb.r = (float)((color & 0xFF0000)/0x010000)/256.0;
-  rgb.g = (float)((color & 0x00FF00)/0x000100)/256.0;
-  rgb.b = (float)((color & 0x0000FF)/0x000001)/256.0;
-  hsv = rgb2hsv(rgb);
-  hsv.v = colorValue;
-  rgb = hsv2rgb(hsv);
-  return pixel.Color(rgb.r * 255, rgb.g * 255, rgb.b * 255);
+	if (color == 0) {
+		return 0;
+	}
+	rgb_t rgb;
+	hsv_t hsv;
+	rgb.r = (float)((color & 0xFF0000)/0x010000)/256.0;
+	rgb.g = (float)((color & 0x00FF00)/0x000100)/256.0;
+	rgb.b = (float)((color & 0x0000FF)/0x000001)/256.0;
+	hsv = rgb2hsv(rgb);
+	hsv.v = colorValue;
+	rgb = hsv2rgb(hsv);
+	return pixel.Color(rgb.r * 255, rgb.g * 255, rgb.b * 255);
 }	
 
 uint32_t DarkWheel(byte WheelPos) {

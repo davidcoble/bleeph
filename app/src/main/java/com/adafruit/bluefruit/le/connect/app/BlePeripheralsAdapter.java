@@ -1,6 +1,7 @@
 package com.adafruit.bluefruit.le.connect.app;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.ParcelUuid;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adafruit.bluefruit.le.connect.BluefruitApplication;
 import com.adafruit.bluefruit.le.connect.R;
 import com.adafruit.bluefruit.le.connect.ble.BleUtils;
 import com.adafruit.bluefruit.le.connect.ble.central.BlePeripheral;
@@ -49,6 +51,8 @@ class BlePeripheralsAdapter extends RecyclerView.Adapter<BlePeripheralsAdapter.V
     private Context mContext;
     private RecyclerView mRecyclerView;
     private Listener mListener;
+    private SharedPreferences mSharedPreferences = BluefruitApplication.getAppContext().getSharedPreferences("BleephSeetings", 0);
+    private SharedPreferences.Editor editor = mSharedPreferences.edit();
 
     BlePeripheralsAdapter(@NonNull Context context, @NonNull Listener listener) {
         mContext = context.getApplicationContext();
@@ -311,19 +315,26 @@ class BlePeripheralsAdapter extends RecyclerView.Adapter<BlePeripheralsAdapter.V
         final int rssiDrawableResource = RssiUI.getDrawableIdForRssi(blePeripheral.getRssi());
         holder.rssiImageView.setImageResource(rssiDrawableResource);
 
-        holder.connectButton.setTag(position);
+        holder.connectButton.setTag(name);
         final int connectionState = blePeripheral.getConnectionState();
         final String connectionAction = connectionState == BlePeripheral.STATE_DISCONNECTED ? "scanner_connect" : "scanner_disconnect";
         holder.connectButton.setText(LocalizationManager.getInstance().getString(mContext, connectionAction));
 
         final WeakReference<BlePeripheral> weakBlePeripheral = new WeakReference<>(blePeripheral);
         holder.connectButton.setOnClickListener(view -> {
+            Object tag = view.getTag();
+            System.err.println(("################################################### connect button pressed! tag = " + tag));
             KeyboardUtils.dismissKeyboard(view);
 
             BlePeripheral selectedBlePeripheral = weakBlePeripheral.get();
+            String identifier1 = selectedBlePeripheral.getIdentifier();
+            System.err.println(("################################################### connect button pressed! id1 = " + identifier1));
             if (selectedBlePeripheral != null) {
                 if (connectionState == BlePeripheral.STATE_DISCONNECTED) {
+                    editor.putString("devicename", tag.toString());
+                    editor.apply();
                     selectedBlePeripheral.connect(mContext);
+                    BluefruitApplication.setConnectedPeripheral(selectedBlePeripheral);
                 } else {
                     selectedBlePeripheral.disconnect();
                 }

@@ -271,10 +271,13 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements
                                     // Enable cache for control pad
                                     mWeakControllerPadFragment = new WeakReference<>(controllerPadFragment);
                                     mUartDataManager.clearRxCache(mBlePeripheral.getIdentifier());
+                                    Log.d("XXXXXXXXXXXXXXXX", "setting ControllerFragment as listener");
                                     mUartDataManager.setListener(ControllerFragment.this);
                                     break;
                                 case kModule_ColorPicker:
+                                    Log.d("XXXXXXXXXXXXXXXX", "not setting a listener");
                                     fragment = ControllerColorPickerFragment.newInstance();
+                                    mUartDataManager.setListener((UartDataManager.UartDataManagerListener) fragment);
                                     fragmentTag = "Color Picker4";
                                     break;
                             }
@@ -311,6 +314,7 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements
                 buildGoogleApiClient(context);
 
                 // Setup
+                Log.d(TAG, "Creating UartDataManager");
                 mUartDataManager = new UartDataManager(context, null, false);            // The listener will be set only for ControlPad
                 setupUart();
             }
@@ -1093,6 +1097,16 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements
     }
 
     @Override
+    public void onSendSpeed(int currentSpeed) {
+        ByteBuffer buffer = ByteBuffer.allocate(3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        String prefix = "!S";
+        buffer.put(prefix.getBytes());
+        buffer.put((byte) (currentSpeed & 0xFF));
+        byte[] result = buffer.array();
+        sendCrcData(result);
+    }
+
+    @Override
     public void onSendNumColors(byte numColors) {
         ByteBuffer buffer = ByteBuffer.allocate(3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
         String prefix = "!N";
@@ -1160,7 +1174,6 @@ public class ControllerFragment extends ConnectedPeripheralFragment implements
 
     @Override
     public void onUartRx(@NonNull byte[] data, @Nullable String peripheralIdentifier) {
-        System.err.println("#########################################1. data received byte[0] = " + data[0]);
         ControllerPadFragment controllerPadFragment = mWeakControllerPadFragment.get();
         if (controllerPadFragment != null) {
             String dataString = BleUtils.bytesToText(data, true);
